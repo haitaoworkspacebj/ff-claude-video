@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Skyward Realm — 浮空群岛</title>
+    <style>
+      html, body { margin: 0; height: 100%; overflow: hidden; background: #0d1520; }
+      canvas { display: block; }
+      #veil {
+        position: fixed; inset: 0; display: grid; place-items: center;
+        background: radial-gradient(ellipse at 50% 40%, #1d3550 0%, #0a1018 70%);
+        color: #cfe4f5; font: 300 13px/1.6 ui-sans-serif, system-ui, -apple-system, "PingFang SC", sans-serif;
+        letter-spacing: .18em; transition: opacity .9s ease; z-index: 10;
+      }
+      #veil.done { opacity: 0; pointer-events: none; }
+      #hint {
+        position: fixed; left: 24px; bottom: 20px; z-index: 5;
+        color: rgba(236,246,255,.62); font: 300 11px/1.7 ui-sans-serif, system-ui, -apple-system, "PingFang SC", sans-serif;
+        letter-spacing: .12em; pointer-events: none; text-shadow: 0 1px 8px rgba(0,20,40,.6);
+        transition: opacity .6s ease;
+      }
+      #hint b { font-weight: 500; color: rgba(236,246,255,.85); }
+      #stats {
+        position: fixed; right: 20px; bottom: 18px; z-index: 5;
+        color: rgba(226,240,252,.45); font: 300 10px/1.6 ui-monospace, monospace; letter-spacing: .1em;
+        pointer-events: none; text-align: right;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="veil">正在构筑浮空群岛…</div>
+    <div id="hint"><b>拖拽</b> 环绕 &nbsp;·&nbsp; <b>滚轮</b> 缩放 &nbsp;·&nbsp; <b>双击</b> 回到主视角</div>
+    <div id="stats"></div>
+    <script>
+      // surface runtime errors on screen so headless screenshots show them
+      window.addEventListener('error', (e) => {
+        const v = document.getElementById('veil');
+        if (!v) return;
+        v.classList.remove('done');
+        v.textContent = 'ERR: ' + (e.message || (e.error && e.error.message) || 'unknown') + '\n' + String((e.error && e.error.stack) || '').split('\n').slice(1,4).join('\n');
+        v.style.color = '#ffb4b4';
+        v.style.fontSize = '13px';
+        v.style.letterSpacing = '0';
+      });
+      window.addEventListener('unhandledrejection', (e) => {
+        const v = document.getElementById('veil');
+        if (!v) return;
+        v.classList.remove('done');
+        v.textContent = 'REJECT: ' + (e.reason && e.reason.message);
+        v.style.color = '#ffb4b4';
+      });
+    </script>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

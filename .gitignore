@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.DS_Store
+*.log
+video/frames/
+video/analysis/
+.claude/
+.v2c/
+.video_agent/
