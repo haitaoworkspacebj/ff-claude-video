@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<title>NEUTRINO — preview</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #000; color: #9ab; font: 12px -apple-system, sans-serif; }
+  #stage { position: absolute; inset: 0 0 44px 0; display: flex; align-items: center; justify-content: center; }
+  canvas { max-width: 100%; max-height: 100%; aspect-ratio: 16 / 9; }
+  #bar { position: absolute; left: 0; right: 0; bottom: 0; height: 44px; display: flex; gap: 10px;
+         align-items: center; padding: 0 12px; background: #050608; }
+  #scrub { flex: 1; }
+  #info { min-width: 260px; font-variant-numeric: tabular-nums; }
+  button { background: #111; color: #cde; border: 1px solid #234; padding: 4px 10px; }
+</style>
+<script type="importmap">
+  { "imports": { "three": "/node_modules/three/build/three.module.js" } }
+</script>
+</head>
+<body>
+<div id="stage"></div>
+<div id="bar">
+  <button id="play" aria-label="play or pause">▶︎</button>
+  <input id="scrub" type="range" min="0" max="1000" value="0" aria-label="timeline">
+  <span id="info"></span>
+  <label><input id="hq" type="checkbox"> motion blur</label>
+</div>
+<audio id="song" src="/web/media/song.mp3" preload="auto"></audio>
+<script type="module" src="/web/src/main.js"></script>
+</body>
+</html>
